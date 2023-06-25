@@ -10,8 +10,11 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@nextui-org/react": "^1.0.0-beta.13",
+    "qrcode": "^1.5.3",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "shortid": "^2.2.16"
   },
   "devDependencies": {
     "@types/react": "^18.0.37",

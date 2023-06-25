@@ -1,14 +1,62 @@
+// @/src/App.tsx
+import { useCallback, useState } from "react"
+import { generate as shortid } from "shortid"
+import { Input, Button, Container, Row, Spacer } from "@nextui-org/react"
 
-import './App.css'
+import { getQRCode } from "./QrCodeUtils"
 
-function App() {
+export const App = () => {
+	const [value, setValue] = useState<string>("")
+	const [qr, setQr] = useState<string>("")
 
+	const generateQRCode = useCallback(() => {
+		const qrValue = getQRCode(value)
+		if (!qrValue) return
+		setQr(qrValue)
+	}, [value, setQr])
 
-  return (
-    <>
-      <h2>Hello</h2>
-    </>
-  )
+	const downloadFile = useCallback(() => {
+		const elm = document.createElement("a")
+		elm.href = qr
+		elm.download = shortid()
+		elm.click()
+	}, [qr])
+
+	return (
+		<div>
+			<h2 style={{ textAlign: "center", margin: "1em" }}> Qr Code Generator</h2>
+			<Container
+				display='flex'
+				direction='row'
+				justify='center'
+				alignItems='center'
+			>
+				<Spacer y={6} />
+
+				<Input
+					clearable
+					rounded
+					placeholder='Insert Url Here'
+					color='primary'
+					value={value}
+					onChange={(e) => setValue(e.target.value)}
+					size='lg'
+				/>
+				<Spacer x={1} />
+				<Button onClick={generateQRCode} shadow size='lg'>
+					Generate
+				</Button>
+
+				{qr && (
+					<Row justify='center' align='center'>
+						<Spacer y={4} />
+						<img src={qr} />
+						<Button onClick={downloadFile} color='success' shadow size='lg'>
+							Download
+						</Button>
+					</Row>
+				)}
+			</Container>
+		</div>
+	)
 }
-
-export default App
