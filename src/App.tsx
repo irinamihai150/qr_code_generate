@@ -2,12 +2,16 @@
 import { useCallback, useState } from "react"
 import { generate as shortid } from "shortid"
 import { Input, Button, Container, Row, Spacer } from "@nextui-org/react"
+import { useTheme as useNextTheme } from "next-themes"
+import { Switch, useTheme } from "@nextui-org/react"
 
 import { getQRCode } from "./QrCodeUtils"
 
 export const App = () => {
 	const [value, setValue] = useState<string>("")
 	const [qr, setQr] = useState<string>("")
+	const { setTheme } = useNextTheme()
+	const { isDark, type } = useTheme()
 
 	const generateQRCode = useCallback(() => {
 		const qrValue = getQRCode(value)
@@ -24,6 +28,10 @@ export const App = () => {
 
 	return (
 		<div>
+			<Switch
+				checked={isDark}
+				onChange={(e) => setTheme(e.target.checked ? "dark" : "light")}
+			/>
 			<h2 style={{ textAlign: "center", margin: "1em" }}> Qr Code Generator</h2>
 			<Container
 				display='flex'
