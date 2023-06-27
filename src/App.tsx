@@ -30,7 +30,11 @@ export const App = () => {
 		<div>
 			<Switch
 				checked={isDark}
-				onChange={(e) => setTheme(e.target.checked ? "dark" : "light")}
+				onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+					setTheme(e.target.checked ? "dark" : "light")
+				}
+
+				// onChange={(e) => setTheme(e.target.checked ? "dark" : "light")}
 			/>
 			<h2 style={{ textAlign: "center", margin: "1em" }}> Qr Code Generator</h2>
 			<Container
