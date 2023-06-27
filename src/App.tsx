@@ -11,7 +11,7 @@ export const App = () => {
 	const [value, setValue] = useState<string>("")
 	const [qr, setQr] = useState<string>("")
 	const { setTheme } = useNextTheme()
-	const { isDark, type } = useTheme()
+	const { isDark } = useTheme()
 
 	const generateQRCode = useCallback(() => {
 		const qrValue = getQRCode(value)
